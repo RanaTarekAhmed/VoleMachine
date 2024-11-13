@@ -1,18 +1,15 @@
 #include "A1_T4_S20_S9_S17_20230632_20230398_20220346_RM.h"
 #include "A1_T4_S20_S9_S17_20230632_20230398_20220346_CPU.h"
-
 using namespace std;
 
 class Machine {
     Memory* memory;
     Register* reg;
     CPU cpu;
-
 public:
     // Constructor of 'Machine;
     Machine(Memory* memory_ptr, Register* reg_ptr, CPU& cpu_obj)
             : memory(memory_ptr), reg(reg_ptr), cpu(cpu_obj) {}
-
     // Loads a program from a file into memory
     void load_program() {
         string filepath;
@@ -24,7 +21,6 @@ public:
             cerr << "Error: Could not open the program file." << endl;
             return;
         }
-
         string instruction;
         int address = 0;
         while (file >> instruction) {
@@ -35,7 +31,6 @@ public:
         cout << "Program file loaded successfully!" << endl;
         cpu.fetch();
     }
-
     // Displays the current state of the memory and the register
     void display_memory_state() {
         cout << "Outputting current state of the machine..." << endl;
@@ -92,16 +87,15 @@ public:
     }
 };
 
+
 int main() {
     // Initialize components
     Memory memory;
     Register reg;
     CPU cpu(&memory, &reg);
-
     // Create Machine and Main_UI objects
     Machine machine(&memory, &reg, cpu);
     Main_UI ui(machine);
-
     // Run the menu
     ui.displayMenu();
     return 0;
