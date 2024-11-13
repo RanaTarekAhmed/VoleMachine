@@ -4,22 +4,18 @@
 void CU::set_memory(Memory* memory1) {
     memory = memory1;
 }
-
 // Setting the register of the control unit
 void CU::set_register(Register* register1) {
     reg = register1;
 }
-
 // Setting the arithmetic logical unit that will be used by the control unit
 void CU::set_alu() {
     alu.set_memory(memory);
     alu.set_register(reg);
 }
-
 // Execute the instructions given by the user
 void CU::execute(int instruction, int address, int xy, int& program_counter) {
     int address_s = (xy - (xy % 10)) / 10, address_t = xy % 10;
-
     // Instruction 1
     if (instruction == 1) {
         reg->set_cell(address, memory->get_cell(xy));
@@ -77,8 +73,6 @@ void CU::execute(int instruction, int address, int xy, int& program_counter) {
         program_counter = xy - 1;
     }
 }
-
-
 // Constructor of 'CPU;
 CPU:: CPU(Memory* memory1, Register* register1)
 {
@@ -88,10 +82,9 @@ CPU:: CPU(Memory* memory1, Register* register1)
     control_unit.set_register(reg);
     control_unit.set_alu();
 }
-
 // Fetching the instructions given by the user and them to the memory
 void CPU::fetch() {
-    for (int i = 0; i < 255; ++i) {
+    for (int i = 0; i < 255; i++) {
         int instruction = memory->get_cell(i++);
         int xy = memory->get_cell(i);
         control_unit.execute((instruction - (instruction % 10)) / 10, instruction % 10, xy, i);
